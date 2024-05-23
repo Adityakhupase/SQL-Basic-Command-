@@ -1,0 +1,487 @@
+//chake avialabe database;
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| aditya             |
+| aditya_37          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.04 sec)
+
+//create new database
+mysql> create database ayk;
+Query OK, 1 row affected (0.02 sec)
+
+//by default database is mysql so we change into our new database
+mysql> use ayk;
+Database changed
+
+//create table with different fiels
+mysql> create table student(name varchar(30),id int not null primary key,address varchar(40),marks int);
+Query OK, 0 rows affected (0.04 sec)
+
+//describe table
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(40) | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+//inser the values into table
+mysql> insert into student values("aditya",01,"akola",89);
+Query OK, 1 row affected (0.01 sec)
+
+//show the table 
+mysql> select *from student;
++--------+----+---------+-------+
+| name   | id | address | marks |
++--------+----+---------+-------+
+| aditya |  1 | akola   |    89 |
++--------+----+---------+-------+
+1 row in set (0.00 sec)
+
+//inser multiple values
+mysql> insert into student values("nishant",2,"akola",84),("mukul",3,"akot",90),("gandhar",4,"akot",92);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+mysql> select *from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| nishant |  2 | akola   |    84 |
+| mukul   |  3 | akot    |    90 |
+| gandhar |  4 | akot    |    92 |
++---------+----+---------+-------+
+4 rows in set (0.00 sec)
+
+//update
+mysql> update student set address="akola" where id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> select *from student;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| nishant |  2 | akola   |    84 |
+| mukul   |  3 | akot    |    90 |
+| gandhar |  4 | akola   |    92 |
++---------+----+---------+-------+
+4 rows in set (0.00 sec)
+
+//add new column
+mysql> alter table student add mob int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> select *from student;
++---------+----+---------+-------+------+
+| name    | id | address | marks | mob  |
++---------+----+---------+-------+------+
+| aditya  |  1 | akola   |    89 | NULL |
+| nishant |  2 | akola   |    84 | NULL |
+| mukul   |  3 | akot    |    90 | NULL |
+| gandhar |  4 | akola   |    92 | NULL |
++---------+----+---------+-------+------+
+4 rows in set (0.00 sec)
+
+//change column name
+mysql> alter table student change mob phon int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(40) | YES  |     | NULL    |       |
+| marks   | int         | YES  |     | NULL    |       |
+| phon    | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+//modify column
+mysql> alter table student modify marks int not null;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(40) | YES  |     | NULL    |       |
+| marks   | int         | NO   |     | NULL    |       |
+| phon    | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+//drop column
+mysql> alter table student drop column phon;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| name    | varchar(30) | YES  |     | NULL    |       |
+| id      | int         | NO   | PRI | NULL    |       |
+| address | varchar(40) | YES  |     | NULL    |       |
+| marks   | int         | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+//add multiple values for reamaning query
+mysql> insert into student values("mahesh",5,"wardha",88),("vaihav",6,"wani",34),("darshan",7,"akot",35),("shreyash",8,"mundgaon",32),("darshan",9,"chandrpur",60),("darshan",10,"akola",95);
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+ERROR 1062 (23000): Duplicate entry '5' for key 'student.PRIMARY'
+mysql> insert into student values("darshan",9,"chandrpur",60),("darshan",10,"akola",95);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select *from student;
++----------+----+-----------+-------+
+| name     | id | address   | marks |
++----------+----+-----------+-------+
+| aditya   |  1 | akola     |    89 |
+| nishant  |  2 | akola     |    84 |
+| mukul    |  3 | akot      |    90 |
+| gandhar  |  4 | akola     |    92 |
+| mahesh   |  5 | wardha    |    88 |
+| vaihav   |  6 | wani      |    34 |
+| darshan  |  7 | akot      |    35 |
+| shreyash |  8 | mundgaon  |    32 |
+| darshan  |  9 | chandrpur |    60 |
+| darshan  | 10 | akola     |    95 |
++----------+----+-----------+-------+
+10 rows in set (0.00 sec)
+
+//arranagge aco to asscending order using mark
+mysql> select *from student
+    -> order by marks asc;
++----------+----+-----------+-------+
+| name     | id | address   | marks |
++----------+----+-----------+-------+
+| shreyash |  8 | mundgaon  |    32 |
+| vaihav   |  6 | wani      |    34 |
+| darshan  |  7 | akot      |    35 |
+| darshan  |  9 | chandrpur |    60 |
+| nishant  |  2 | akola     |    84 |
+| mahesh   |  5 | wardha    |    88 |
+| aditya   |  1 | akola     |    89 |
+| mukul    |  3 | akot      |    90 |
+| gandhar  |  4 | akola     |    92 |
+| darshan  | 10 | akola     |    95 |
++----------+----+-----------+-------+
+10 rows in set (0.00 sec)
+
+//arranagge aco to asscending order using mark
+mysql> select *from student
+    -> order by marks desc;
++----------+----+-----------+-------+
+| name     | id | address   | marks |
++----------+----+-----------+-------+
+| darshan  | 10 | akola     |    95 |
+| gandhar  |  4 | akola     |    92 |
+| mukul    |  3 | akot      |    90 |
+| aditya   |  1 | akola     |    89 |
+| mahesh   |  5 | wardha    |    88 |
+| nishant  |  2 | akola     |    84 |
+| darshan  |  9 | chandrpur |    60 |
+| darshan  |  7 | akot      |    35 |
+| vaihav   |  6 | wani      |    34 |
+| shreyash |  8 | mundgaon  |    32 |
++----------+----+-----------+-------+
+10 rows in set (0.00 sec)
+
+//only i want 5 student data
+mysql> select *from student
+    -> limit 5;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| nishant |  2 | akola   |    84 |
+| mukul   |  3 | akot    |    90 |
+| gandhar |  4 | akola   |    92 |
+| mahesh  |  5 | wardha  |    88 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+//supose i want only three name have max marks
+mysql> select *from student
+    -> order by marks desc limit 3;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| darshan | 10 | akola   |    95 |
+| gandhar |  4 | akola   |    92 |
+| mukul   |  3 | akot    |    90 |
++---------+----+---------+-------+
+3 rows in set (0.00 sec)
+
+///address no repeted value
+mysql> select distinct address from student;
++-----------+
+| address   |
++-----------+
+| akola     |
+| akot      |
+| wardha    |
+| wani      |
+| mundgaon  |
+| chandrpur |
++-----------+
+6 rows in set (0.00 sec)
+
+//all address avialable in table
+mysql> select address from student;
++-----------+
+| address   |
++-----------+
+| akola     |
+| akola     |
+| akot      |
+| akola     |
+| wardha    |
+| wani      |
+| akot      |
+| mundgaon  |
+| chandrpur |
+| akola     |
++-----------+
+10 rows in set (0.00 sec)
+
+//all student from akola
+mysql> select *from student where address="akola";
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| nishant |  2 | akola   |    84 |
+| gandhar |  4 | akola   |    92 |
+| darshan | 10 | akola   |    95 |
++---------+----+---------+-------+
+4 rows in set (0.00 sec)
+
+//mark >85
+mysql> select *from student where marks>85;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| mukul   |  3 | akot    |    90 |
+| gandhar |  4 | akola   |    92 |
+| mahesh  |  5 | wardha  |    88 |
+| darshan | 10 | akola   |    95 |
++---------+----+---------+-------+
+5 rows in set (0.00 sec)
+
+//combine condition mark>85 and address is akola
+mysql> select *from student where marks>85 and address="akola";
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| gandhar |  4 | akola   |    92 |
+| darshan | 10 | akola   |    95 |
++---------+----+---------+-------+
+3 rows in set (0.00 sec)
+
+//between
+mysql> select *from student where marks between 80 and 100;
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| nishant |  2 | akola   |    84 |
+| mukul   |  3 | akot    |    90 |
+| gandhar |  4 | akola   |    92 |
+| mahesh  |  5 | wardha  |    88 |
+| darshan | 10 | akola   |    95 |
++---------+----+---------+-------+
+6 rows in set (0.01 sec)
+
+//in
+mysql> select *from student where address in("akot","akola");
++---------+----+---------+-------+
+| name    | id | address | marks |
++---------+----+---------+-------+
+| aditya  |  1 | akola   |    89 |
+| nishant |  2 | akola   |    84 |
+| mukul   |  3 | akot    |    90 |
+| gandhar |  4 | akola   |    92 |
+| darshan |  7 | akot    |    35 |
+| darshan | 10 | akola   |    95 |
++---------+----+---------+-------+
+6 rows in set (0.00 sec)
+
+//not in
+mysql> select *from student where address not in("akot","akola");
++----------+----+-----------+-------+
+| name     | id | address   | marks |
++----------+----+-----------+-------+
+| mahesh   |  5 | wardha    |    88 |
+| vaihav   |  6 | wani      |    34 |
+| shreyash |  8 | mundgaon  |    32 |
+| darshan  |  9 | chandrpur |    60 |
++----------+----+-----------+-------+
+4 rows in set (0.00 sec)
+
+//aggregate function with group by clause
+mysql> select address,avg(marks) from student group by address;
++-----------+------------+
+| address   | avg(marks) |
++-----------+------------+
+| akola     |    90.0000 |
+| akot      |    62.5000 |
+| wardha    |    88.0000 |
+| wani      |    34.0000 |
+| mundgaon  |    32.0000 |
+| chandrpur |    60.0000 |
++-----------+------------+
+6 rows in set (0.01 sec)
+
+//count using group by
+mysql> select address,count(name) from student group by address;
++-----------+-------------+
+| address   | count(name) |
++-----------+-------------+
+| akola     |           4 |
+| akot      |           2 |
+| wardha    |           1 |
+| wani      |           1 |
+| mundgaon  |           1 |
+| chandrpur |           1 |
++-----------+-------------+
+6 rows in set (0.00 sec)
+
+//marks >90 group by nmae
+mysql> select name,count(id) from student  group by name having max(marks>90);
++---------+-----------+
+| name    | count(id) |
++---------+-----------+
+| gandhar |         1 |
+| darshan |         3 |
++---------+-----------+
+2 rows in set (0.01 sec)
+
+//now we use jons first create sencond table with forigen key 
+mysql> create table course(id int not null,c_name varchar(20),duration int,foreign key (id) references student(id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc course;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | NO   | MUL | NULL    |       |
+| c_name   | varchar(20) | YES  |     | NULL    |       |
+| duration | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into course values (1,"c",3),(3,"c++",4),(2,"java",6),(2,"python",3);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+mysql> select*from course;
++----+--------+----------+
+| id | c_name | duration |
++----+--------+----------+
+|  1 | c      |        3 |
+|  3 | c++    |        4 |
+|  2 | java   |        6 |
+|  2 | python |        3 |
++----+--------+----------+
+4 rows in set (0.00 sec)
+
+//inner join 
+mysql> alter table course change id c_id int;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select id from student inner join course on student.id=course.id;
+ERROR 1054 (42S22): Unknown column 'course.id' in 'on clause'
+mysql> select * from student inner join course on student.id=course.c_id;
++---------+----+---------+-------+------+--------+----------+
+| name    | id | address | marks | c_id | c_name | duration |
++---------+----+---------+-------+------+--------+----------+
+| aditya  |  1 | akola   |    89 |    1 | c      |        3 |
+| mukul   |  3 | akot    |    90 |    3 | c++    |        4 |
+| nishant |  2 | akola   |    84 |    2 | java   |        6 |
+| nishant |  2 | akola   |    84 |    2 | python |        3 |
++---------+----+---------+-------+------+--------+----------+
+4 rows in set (0.00 sec)
+
+//inner,left right join
+mysql> select name,id,c_name from student inner join course on student.id=course.c_id;
++---------+----+--------+
+| name    | id | c_name |
++---------+----+--------+
+| aditya  |  1 | c      |
+| mukul   |  3 | c++    |
+| nishant |  2 | java   |
+| nishant |  2 | python |
++---------+----+--------+
+4 rows in set (0.00 sec)
+
+mysql> select name,id,c_name from student right join course on student.id=course.c_id;
++---------+------+--------+
+| name    | id   | c_name |
++---------+------+--------+
+| aditya  |    1 | c      |
+| mukul   |    3 | c++    |
+| nishant |    2 | java   |
+| nishant |    2 | python |
++---------+------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select name,id,c_name from student left join course on student.id=course.c_id;
++----------+----+--------+
+| name     | id | c_name |
++----------+----+--------+
+| aditya   |  1 | c      |
+| nishant  |  2 | python |
+| nishant  |  2 | java   |
+| mukul    |  3 | c++    |
+| gandhar  |  4 | NULL   |
+| mahesh   |  5 | NULL   |
+| vaihav   |  6 | NULL   |
+| darshan  |  7 | NULL   |
+| shreyash |  8 | NULL   |
+| darshan  |  9 | NULL   |
+| darshan  | 10 | NULL   |
++----------+----+--------+
+11 rows in set (0.00 sec)
+
+//full join
+mysql> select * from student left join course on student.id=course.c_id union select *from student right join course on student.id=course.c_id;
++----------+------+-----------+-------+------+--------+----------+
+| name     | id   | address   | marks | c_id | c_name | duration |
++----------+------+-----------+-------+------+--------+----------+
+| aditya   |    1 | akola     |    89 |    1 | c      |        3 |
+| nishant  |    2 | akola     |    84 |    2 | python |        3 |
+| nishant  |    2 | akola     |    84 |    2 | java   |        6 |
+| mukul    |    3 | akot      |    90 |    3 | c++    |        4 |
+| gandhar  |    4 | akola     |    92 | NULL | NULL   |     NULL |
+| mahesh   |    5 | wardha    |    88 | NULL | NULL   |     NULL |
+| vaihav   |    6 | wani      |    34 | NULL | NULL   |     NULL |
+| darshan  |    7 | akot      |    35 | NULL | NULL   |     NULL |
+| shreyash |    8 | mundgaon  |    32 | NULL | NULL   |     NULL |
+| darshan  |    9 | chandrpur |    60 | NULL | NULL   |     NULL |
+| darshan  |   10 | akola     |    95 | NULL | NULL   |     NULL |
++----------+------+-----------+-------+------+--------+----------+
+11 rows in set (0.00 sec)
+
+								----THANK YOU----
